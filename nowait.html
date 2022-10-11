@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!--AUTOR: Luiz Gustavo de Salles Pinho; 19/09/2022 -->
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Gerador Nowait</title>
+    <link rel="icon" href="./ALTs/dracula.png" style="width: 44px;">
+    
+</head>
+<body>
+    <header>
+        <table class="table_footer">
+            <td><p class="footer_desc">Gerador de Nowait Dracula's v1.2</p> </td>
+            <td><img class="img-1" src="./ALTs/dracula.png"></td>
+        </table>
+    </header>
+    <main>
+        <div id="div1" class="divs">
+            <textarea name="textareaBruto" id="txt1" cols="30" rows="10" class="textarea"></textarea>
+            
+        </div>
+        <div id="div2" class="divs">
+            <textarea name="textareaLimpo" id="txt2" cols="30" rows="10" class="textarea"></textarea>
+            <button id="copiar" class="btn-1">Copiar</button>
+        </div>
+        <div id="Dbotao">
+            <button id="teste" onclick="gerarNowait()" class="btn-1">Gerar</button>
+            <button id="clear"  class="btn-1" >Limpar</button> <!--onclick="limpar()"-->
+        </div>
+        <div>
+            <fieldset class="fieldset">
+                <legend >Opções: </legend>
+                <div>
+                    <input type="checkbox" id="parenteses" name="parenteses" class="checkbox" checked>
+                        <label for="parenteses"class="txt5">Remover Parenteses ?</label>
+                </div>
+                <div>       
+                    <input type="checkbox" id="ponto" name="pontos" class="checkbox" checked>    
+                        <label for="ponto"class="txt5">Remover Pontos ?</label>
+                </div>
+            </fieldset>
+        </div>
+        <script>
+
+            //AUTOR: Luiz Gustavo de Salles Pinho; 19/09/2022
+
+// Inicio gerador
+
+/*Variable área [START]*/
+
+const gerar = document.getElementById("teste");
+const espaco = String.fromCharCode(32);
+let checkParenteses = document.getElementById("parenteses");
+let checkPontos =document.getElementById("ponto")
+const limparE = document.getElementById('clear');
+let removePar = false;
+let removePonto = false;
+const copiar = document.getElementById('copiar');
+
+var textogeral = "";
+var fim1 = 0;
+//chars
+const newline = String.fromCharCode(10);
+const tab = String.fromCharCode(9);
+//
+
+//regex
+var limpaNewline = new RegExp(newline, "g");
+var limpaTab = new RegExp(tab, "g");
+
+/*Variable área [END]*/
+
+/*Function área [START]*/
+
+function gerarNowait() {
+  //buscando a string bruta
+  let textBruto = document.getElementById("txt1").value;
+
+  //Iniciando o tratamento da string
+  let txtClear = '';
+
+  txtClear = limparCaracESP(textBruto,checkParenteses.checked,checkPontos.checked);
+
+  //
+  fim1 = 0;
+  textogeral = '';
+  let variaveis = localizaVar(txtClear);
+
+  //escrevendo no campo
+  document.getElementById("txt2").value = variaveis;
+}
+
+function limparCaracESP(textBruto,removePar,removePonto) {
+  textBruto += espaco;
+  let txtLimpando = textBruto;
+  let textov3 = '';
+
+  let textov1 
+
+
+    if (removePar && removePonto){
+      textov1 = textBruto.replace(/,|\.|\+|\/|;|{|}|\(|\)/g, espaco);
+    }
+    if (removePar && !removePonto){
+      textov1 = textBruto.replace(/,|\+|\/|;|{|}|\(|\)/g, espaco);
+    }
+    if (!removePar && removePonto){
+        textov1 = textBruto.replace(/,|\.|\+|\/|;|{|}/g, espaco);
+    }
+    if (!removePar && !removePonto){
+      textov1 = textBruto.replace(/,|\+|\/|;|{|}/g, espaco);
+  }
+
+    let textov2 = textov1.replace(limpaNewline, espaco);
+    textov3 = textov2.replace(limpaTab, espaco);
+  return textov3;
+}
+
+function localizaVar(txtClear) {
+
+  while (txtClear.indexOf("&", fim1) > -1) {
+    if (fim1 < 1) {
+      let inicio = txtClear.indexOf("&"); //7
+      let fim = txtClear.indexOf(espaco, inicio);
+      fim1 = fim;
+      let teste2 = txtClear.slice(inicio, fim);
+
+      textogeral =
+        "msg('" +
+        teste2 +
+        ": '" +
+        " + " +
+        " toformattedstring(" +
+        teste2 +
+        "), nowait)" +
+        "\n";
+    } else {
+      let inicio = txtClear.indexOf("&", fim1);
+      let fim = txtClear.indexOf(espaco, inicio);
+      fim1 = fim;
+
+      let teste2 = txtClear.slice(inicio, fim);
+
+      textogeral +=
+        "msg('" +
+        teste2 +
+        ": '" +
+        " + " +
+        " toformattedstring(" +
+        teste2 +
+        "), nowait)" +
+        "\n";
+    }
+  }
+
+  return textogeral;
+}
+
+function limpar(){
+    document.getElementById("txt1").value = '';
+    document.getElementById("txt2").value = '';
+}
+
+function copiarr() {
+  document.querySelector("#txt2").select();
+  document.execCommand('copy');
+  }
+/*Function área [END]*/
+
+/*Event área [START]*/
+
+limparE.addEventListener('click', (e)=>{e.text 
+    limpar();
+}
+    );
+
+copiar.addEventListener('click', ()=>{
+  copiarr();
+})
+
+
+/*Event área [START]*/
+
+// Fim gerador
+
+
+        </script>
+
+        <style>
+            /* AUTOR: Luiz Gustavo de Salles Pinho; 19/09/2022 */
+
+
+header, main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family:Arial;
+}
+
+body{
+    margin: 0%;
+    background: #282A36;
+    background-size:cover;
+    height: 100vh;
+    position: relative;
+}
+
+.teste{
+    width: 100px;
+    height: 40px;
+}
+
+.divs{
+    width: 45%;
+    height: 200px;
+    align-content: center;
+    text-align: center;
+    display: flex;
+}
+
+.div3{
+    float: right;
+}
+
+.img-1{
+    display: flex;
+    width: 68px;
+    margin: auto;
+    margin-left: 4px;
+}
+
+.table_footer{
+    align-self: center;
+    margin: auto;
+    margin-top: 10px;
+}
+
+/* .txt2{
+
+} */
+
+#Dbotao{
+    width: 45%;
+    height: 40px;
+    margin-top: 10px;
+    width: fit-content;
+    align-content: center;
+    text-align: center;
+}
+
+
+.textarea{
+    margin: auto;
+    min-height: 70%;
+    min-width: 100%;
+    border-radius: 10px;
+
+    overflow: auto;
+    border-radius: 10px;
+    resize: none;
+
+    background-color: #62677D;
+    border: 2px solid #727788;
+
+    color: #F1FA8C;
+
+    
+}
+
+textarea:focus, input:focus {
+    box-shadow: 0 0 0 0;
+    
+    
+    outline: 0;
+    }
+
+.teste {
+    margin: auto;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+
+}
+.teste:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+.teste:active {
+	position:relative;
+	top:1px;
+}
+
+.fieldset{
+    margin-top: 10px;
+    border-color: #8BE9F1;
+    color: #8BE9F1;
+}
+
+.checkbox{
+    accent-color: #727788;
+}
+
+
+.title{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+	font-size:35px;
+    color: #F1FA8C;
+    text-decoration: underline #F1FA8C;
+    font-style: italic;
+    
+
+    margin-top: 10px;
+}
+
+.test:hover{
+    background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+
+.test:active {
+	position:relative;
+	top:1px;
+}
+
+.test {
+    margin: auto;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	font-family:Arial;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+
+}
+
+.footer_desc{
+    font-family:Verdana;
+    font-size: 24px;
+    color: #F1FA8C;
+
+    text-align: center;
+}
+
+
+/* Botoes */
+
+.btn-1{
+    margin: auto;
+
+    width: 100px;
+	background-color:none;
+	border-radius:6px;
+	border:2px solid #FF79AA;
+    background-color: transparent;
+	display:inline-block;
+	cursor:pointer;
+	color:#FF79AA;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+}
+
+#copiar{
+    margin-left: 10px;
+}
+
+.btn-1:hover{
+    background-color: #9b6f7f65;
+}
+        </style>
+    </main>
+    
+    
+</body>
+<footer>
+    
+    
+    
+</footer>
+</html>

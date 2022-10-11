@@ -1,0 +1,150 @@
+<main class="container py-3">
+    <div class="row row-cols-1 row-cols-md-3 g-2">
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h5 class="card-title">Ramais</h5>
+                </div>
+                <div class="card-body">
+                    <button type="button" id="btn-verlista" class="w-50 btn btn-outline-dark bg-ramal"
+                        data-bs-toggle="modal" data-bs-target="#modal-listaramal">
+                        Ver lista
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h5 class="card-title">Zimbra</h5>
+                </div>
+                <div class="card-body">
+                    <a href="https://webmail.fixit.inf.br/" target="_blank"
+                        class="w-50 btn btn-outline-dark bg-zimbra">Acessar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h5 class="card-title">Discord</h5>
+                </div>
+                <div class="card-body">
+                    <a href="https://discord.com/" target="_blank"
+                        class="w-50 btn btn-outline-dark bg-discord">Acessar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" id="spotify">
+            <div class="card text-center">
+                <div class="card-body p-3">
+                    <div id="embed_spotify">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal lista de ramais -->
+    <div class="modal fade" id="modal-listaramal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Lista Ramais</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group input-group">
+                        <input name="consulta" id="txt_consulta" placeholder="Pesquisar..." type="text"
+                            class="form-control">
+                    </div>
+                    <ul class="list-group text-left" id="lista-ramal">
+                        <!-- Carregado via java script -->
+                    </ul>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" id="btn-baixar" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                        data-bs-toggle="modal" data-bs-target="#confirmabaixar">Baixar Lista</button>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal concluir dowload lista ramais -->
+    <div class="modal fade" id="confirmabaixar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="confirma_id" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content shadow-lg">
+                <div class="modal-header">
+                    <h5>Baixar arquivo ramais.csv?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <a href="./src-utilitario/ramais.csv" download="Lista Ramais" class="btn btn-primary"
+                        id="btn-confirmarbaixar">Confirmar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        {
+            let pagina = "/inicio.html";
+            if(location.pathname.includes(pagina)){
+                location.replace(location.pathname.replace(pagina,"/index.html"));
+            }
+        }
+        {
+            lerRamais('./src-utilitario/ramais.csv', 'lista-ramal');
+
+            // Filtra lista de ramais
+            $('#txt_consulta').bind('keydown', function () {
+                var consulta = this.value.toUpperCase();
+                var lista = $("#lista-ramal li").hide();
+                lista.filter(function () {
+                    return $(this).text().toUpperCase().indexOf(consulta) >= 0;
+                }).show();
+            });
+
+            // Ao abrir lista de ramais seta foco
+            $('#modal-listaramal').on('shown.bs.modal', function () {
+                document.getElementById("txt_consulta").focus();
+            });
+        }
+
+        {
+            let atributos = objetoJson();
+
+            if (atributos != null) {
+                document.getElementById('spotify').style.display = atributos.divSpotify == "true" ? "block" : "none";
+
+                window.onSpotifyIframeApiReady = (IFrameAPI) => {
+                    let element = document.getElementById('embed_spotify');
+
+                    let options = {
+                        uri: atributos.uriSpotify == '' ? 'spotify:show:3jbefzH1iPC3gdIbYXXg8I' : atributos.uriSpotify
+                    };
+                    let callback = (EmbedController) => { };
+                    IFrameAPI.createController(element, options, callback);
+                };
+            }else{
+                document.getElementById('spotify').style.display = "none";
+            }
+        }
+
+        {
+            var links = document.querySelectorAll('nav li a');
+
+            for (let link of links) {
+                link.classList.remove('active');
+            }
+
+            document.getElementById('btn-pagina-inicio').classList.add('active');
+        }
+    </script>
+</main>

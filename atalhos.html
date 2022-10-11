@@ -1,0 +1,81 @@
+<div class="modal fade" id="teclas-atalho" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Teclas de Atalho</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Utilize as teclas <b>Ctrl + Alt</b> do seu teclado junto a algum número, confome os itens
+                    abaixo:</p>
+                <p><b>Ctrl + Alt + B</b> - Foco no campo de pesquisa</p>
+                <p><b>Ctrl + Alt + H</b> - Home</p>
+                <p><b>Ctrl + Alt + D</b> - Developer</p>
+                <p><b>Ctrl + Alt + E</b> - Evolution</p>
+                <p><b>Ctrl + Alt + F</b> - Flow</p>
+                <p><b>Ctrl + Alt + M</b> - Manager</p>
+                <p><b>Ctrl + Alt + P</b> - Plus</p>
+                <p><b>Ctrl + Alt + S</b> - Smart</p>
+                <p><b>Ctrl + Alt + L</b> - Lista Ramais (Somente na Home)</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-fechar-atalhos" type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        {
+            let pagina = "/atalhos.html";
+            if(location.pathname.includes(pagina)){
+                location.replace(location.pathname.replace(pagina,"/index.html"));
+            }
+        }
+        //adiciona os eventos pelo teclado
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && e.altKey) {
+
+                var id = "";
+                switch (e.key) {
+                    case "h":
+                        id = "btn-pagina-inicio";
+                        break;
+                    case "°":
+                        id = "btn-pagina-evolution";
+                        break;
+                    case "m":
+                        id = "btn-pagina-manager";
+                        break;
+                    case "p":
+                        id = "btn-pagina-plus";
+                        break;
+                    case "s":
+                        id = "btn-pagina-smart";
+                        break;
+                    case "d":
+                        id = "btn-pagina-developer";
+                        break;
+                    case "l":
+                        id = "btn-verlista";
+                        break;
+                    case "f":
+                        id = "btn-pagina-flow";
+                        break;
+                }
+                if (e.key != "") {
+                    e.key != "b" ? document.getElementById(id).click() : document.getElementById("txt_consulta").focus();
+                }
+            }
+        });
+        
+        // Ao pressionar ctrl e alt fecha automaticamente
+        $('#teclas-atalho').on('shown.bs.modal', function () {
+            document.addEventListener('keydown', function (e) {
+                if (e.ctrlKey && e.altKey) {
+                    $('#btn-fechar-atalhos').click();
+                }
+            });
+        });
+    </script>
+</div>

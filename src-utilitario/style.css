@@ -1,0 +1,69 @@
+:root{
+    --fundo-zimbra:#2b62c7;
+    --fundo-discord:#925ece;
+    --fundo-ramal: #116b49;
+    
+    --transition-cards: 200ms;
+}
+.selecionado{
+    background-color: #014919;
+}
+
+body{
+    background-attachment: fixed;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+nav li a{
+    cursor: pointer;
+}
+
+#tabela-cliente tbody tr td:nth-child(1){
+    cursor: pointer;
+}
+
+#id_preferencia{
+    display:none;
+}
+#mostra_id:checked ~ #id_preferencia{
+    display:block;
+}
+
+.card:hover .bg-ramal{
+    border-color: var(--fundo-ramal);
+    box-shadow: 0 2px 5px var(--fundo-ramal);
+    transition: var(--transition-cards);
+}
+.card .bg-ramal:hover{
+    background-color: var(--fundo-ramal);
+    color: white;
+    transition: var(--transition-cards);
+}
+
+.card:hover .bg-zimbra{
+    border-color: var(--fundo-zimbra);
+    box-shadow: 0 2px 5px var(--fundo-zimbra);
+    transition: var(--transition-cards);
+}
+.card .bg-zimbra:hover{
+    background-color: var(--fundo-zimbra);
+    color: white;
+    transition: var(--transition-cards);
+}
+
+.card:hover .bg-discord{
+    border-color: var(--fundo-discord);
+    box-shadow: 0 2px 5px var(--fundo-discord);
+    transition: var(--transition-cards);
+}
+.card .bg-discord:hover{
+    background-color: var(--fundo-discord);
+    color: white;
+    transition: var(--transition-cards);
+}
+
+.logo-navbar{
+    max-width: 150px;
+}

@@ -1,0 +1,126 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" onclick="pagina('inicio.html')">
+            <img src="./src-utilitario/logo-siscobra.png" alt="Logo Siscobra" class="logo-navbar">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a id="btn-pagina-inicio" class="nav-link" aria-current="page" onclick="pagina('inicio.html')">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="btn-pagina-developer" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Developer
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item"
+                                href="https://developer.siscobra.com.br/com.sistemaversionamento.hbranco"
+                                target="_blank">Oficial</a></li>
+                        <li><a class="dropdown-item" href="https://hml.siscobra.com.br/developer/"
+                                target="_blank">Homologação</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a id="btn-pagina-evolution" class="nav-link" onclick="pagina('evolution.html')">Evolution</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="btn-pagina-flow" class="nav-link dropdown-toggle" href="#" id="drop_flow"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Flow
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="drop_flow">
+                        <li><a class="dropdown-item" href="#">Oficial</a></li>
+                        <li><a class="dropdown-item" href="https://hml.siscobra.com.br/flow/siscobra.login"
+                                target="_blank">Homologação</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a id="btn-pagina-manager" class="nav-link" onclick="pagina('manager.html')">Manager</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="btn-pagina-pay-boleto" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Pay Boleto
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item"
+                                href="https://app-plus.siscobra.com.br/boletos/com.msboleto.login"
+                                target="_blank">Oficial</a></li>
+                        <li><a class="dropdown-item" href="https://hml.siscobra.com.br/boletos/com.msboleto.login"
+                                target="_blank">Homologação</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="btn-pagina-plus" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Plus
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item"
+                                href="https://app-plus.siscobra.com.br/servlet/siscobra.login"
+                                target="_blank">Oficial</a></li>
+                        <li><a class="dropdown-item" href="https://hml.siscobra.com.br/plus/"
+                                target="_blank">Homologação</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="btn-pagina-smart" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Smart
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="https://smart.siscobra.com.br/servlet/hsiscobralogin"
+                                target="_blank">Oficial</a></li>
+                        <li><a class="dropdown-item" href="https://hml.siscobra.com.br/smart/"
+                                target="_blank">Homologação</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a id="btn-pagina-nowait" class="nav-link" href="./nowait.html" target="_blank">NoWait</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#opcao">Opções</a>
+                </li>
+            </ul>
+            <div class="pull-right d-flex">
+                <div class="input-group">
+                    <label for="mostra_id" class="btn btn-sm btn-outline-secondary">
+                        Id
+                    </label>
+                    <input id="mostra_id" type="checkbox" style="display: none;">
+                    <input id="id_preferencia" type="text" style="width: 10ch;" placeholder="Id"
+                        title="Id de preferências da página" onchange="obterPreferencia(this.value)"
+                        class="form-control form-control-sm">
+                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#teclas-atalho" title="Teclas de atalhos.">
+                        Ctrl + Alt + ?
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        {
+            let pagina = "/barra_navegacao.html";
+            if(location.pathname.includes(pagina)){
+                location.replace(location.pathname.replace(pagina,"/index.html"));
+            }
+        }
+
+        {
+            let atributos = objetoJson();
+            
+            if(atributos != null){
+                document.getElementById('id_preferencia').value = atributos.id;
+            }else{
+                document.getElementById('mostra_id').checked = true;
+            }
+        }
+    </script>
+</nav>

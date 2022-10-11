@@ -1,0 +1,100 @@
+<div class="modal fade" id="opcao" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="opcoespagina" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="opcoespagina">Opções da Página</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+                <form>
+                    <label class="input-label mb-3">Fundo</label>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="corFundo" class="input-group-text"
+                                title="Escolha a cor do fundo da página.">Cor</label>
+                        </div>
+                        <input id="corFundo" type="color" class="form-control form-control-color" value="#563d7c"
+                            title="Escolha a cor do fundo da página.">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="linkFundo" class="input-group-text"
+                                title="Copie e cole o endereço da imagem de fundo.">Endereço imagem</label>
+                        </div>
+                        <input id="linkFundo" type="text" class="form-control" name="Spotify"
+                            title="Copie e cole o endereço da imagem de fundo.">
+                    </div>
+
+                    <label class="input-label mb-3">Spotify</label>
+
+
+                    <div class="form-group form-check mb-3">
+                        <input id="divSpotify" type="checkbox" class="form-check-input" title="Habilitar campo Spotify">
+                        <label class="form-check-label" for="divSpotify" title="Habilitar campo Spotify">Visível</label>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="uriSpotify" class="input-group-text">URI</label>
+                        </div>
+                        <input id="uriSpotify" type="text" class="form-control"
+                            title="Cole a URI do podcast que deseja ver na caixa do Spotify">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="confirma_opcoes" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-dismiss="modal" data-bs-target="#confirma_id">
+                    Confirma
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Confirmar ID de Preferências das opções da página-->
+<div class="modal fade" id="confirma_id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="confirma_id" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title_confirma_id">Confirme seu identificador de preferências</h5>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="id_preferencia_modal" style="width: 10ch;" placeholder="Identificador"
+                    onchange="obterPreferencia(this.value)" class="w-100 form-control" title="Id de preferências"
+                    name="id_preferencia_modal">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="salvarPreferencia()" data-bs-dismiss="modal"
+                    value="">Confirma</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        {
+            let pagina = "/opcoes_pagina.html";
+            if(location.pathname.includes(pagina)){
+                location.replace(location.pathname.replace(pagina,"/index.html"));
+            }
+        }
+        {
+            let atributos = objetoJson();
+
+            if(atributos != null){
+                document.getElementById('id_preferencia_modal').value = atributos.id;
+                
+                document.getElementById('corFundo').value = atributos.corFundo;
+                document.getElementById('linkFundo').value = atributos.linkFundo;
+                document.getElementById('divSpotify').checked = atributos.divSpotify == 'true'? true : false;
+                document.getElementById('uriSpotify').value = atributos.uriSpotify;
+            }
+        }
+    </script>
+</div>

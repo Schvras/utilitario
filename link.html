@@ -1,13 +1,13 @@
 <main class="container py-3">
     <div class="modal-content p-3 table-responsive">
-        <div class="form-group input-group">
+        <div class="form-group">
             <input name="consulta" id="txt_consulta" placeholder="Pesquisar acesso..." type="text" class="form-control">
         </div>
-        <table id="tabela-cliente" class="table table-hover">
+        <table id="tabela-link" class="table table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th class="w-100 " scope="col">
-                        Cliente
+                        Nome
                     </th>
                     <th scope="col">
                     </th>
@@ -20,7 +20,7 @@
     </div>
     <script>
         {
-            let pagina = "/manager.html";
+            let pagina = "/link.html";
             if(location.pathname.includes(pagina)){
                 location.replace(location.pathname.replace(pagina,"/index.html"));
             }
@@ -33,16 +33,15 @@
             // Filtra clientes
             $('#txt_consulta').bind('keydown', function () {
                 var search = this.value.toUpperCase();
-                var $li = $("#tabela-cliente tbody tr").hide();
+                var $li = $("#tabela-link tbody tr").hide();
                 $li.filter(function () {
                     return $(this).text().toUpperCase().indexOf(search) >= 0;
                 }).show();
             });
 
-            // Carregar lista de acessos
-            criarLinkCliente('./src-utilitario/clientes-manager.csv', 'tabela-cliente');
+        
+            criarLinkCliente('./src-utilitario/link.csv', 'tabela-link');
         }
-
         {
             var links = document.querySelectorAll('nav li a');
         
@@ -50,7 +49,7 @@
                 link.classList.remove('active');
             }
 
-            document.getElementById('btn-pagina-manager').classList.add('active');
+            document.getElementById('btn-pagina-link').classList.add('active');
         }
     </script>
 </main>

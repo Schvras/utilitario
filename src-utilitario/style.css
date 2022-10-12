@@ -1,5 +1,5 @@
 :root{
-    --fundo-zimbra:#2b62c7;
+    --fundo-mail:#2b62c7;
     --fundo-discord:#925ece;
     --fundo-ramal: #116b49;
     
@@ -20,7 +20,7 @@ nav li a{
     cursor: pointer;
 }
 
-#tabela-cliente tbody tr td:nth-child(1){
+#tabela-link tbody tr td:nth-child(1){
     cursor: pointer;
 }
 
@@ -42,13 +42,13 @@ nav li a{
     transition: var(--transition-cards);
 }
 
-.card:hover .bg-zimbra{
-    border-color: var(--fundo-zimbra);
-    box-shadow: 0 2px 5px var(--fundo-zimbra);
+.card:hover .bg-mail{
+    border-color: var(--fundo-mail);
+    box-shadow: 0 2px 5px var(--fundo-mail);
     transition: var(--transition-cards);
 }
-.card .bg-zimbra:hover{
-    background-color: var(--fundo-zimbra);
+.card .bg-mail:hover{
+    background-color: var(--fundo-mail);
     color: white;
     transition: var(--transition-cards);
 }
